@@ -13,8 +13,6 @@
 * **⏳ Optimized for Swing Trading:** Trained on the 1D (Daily) timeframe to provide high-probability forecasts for 24–48 hour windows.
 * **🔴 Live Trading Mode:** Automated data fetching and prediction cycles every 5 seconds via Yahoo Finance API.
 * **🛡️ Integrated Risk Management:** Dynamic calculation of Entry, Stop-Loss, and Take-Profit levels based on market volatility (ATR).
-* **🧪 Pro Backtesting Suite:** Built-in simulation module to verify strategies against historical data, including realistic slippage and commission costs.
-
 ---
 
 ## 🛠 Tech Stack
@@ -33,8 +31,6 @@
 ## 📂 Project Structure
 
 * `app.py` — The primary interactive terminal and UI.
-* `train_super.py` — Training script with optimized hyperparameter logic.
-* `backtest_pro.py` — Historical performance evaluation module.
 * `robust_model_*.pkl` — Serialized weights for the trained AI models.
 * `robust_features_*.pkl` — Metadata for model-specific feature alignment.
 * `requirements.txt` — Project dependencies.
