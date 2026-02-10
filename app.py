@@ -11,7 +11,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 # --- НАСТРОЙКИ СТРАНИЦЫ ---
-st.set_page_config(page_title="QUANT TERMINAL", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="QUANT TERMINAL", page_icon="⚡", layout="wide", initial_sidebar_state="expanded")
 
 # --- CSS ---
 st.markdown("""
@@ -24,9 +24,11 @@ st.markdown("""
     [data-testid="stMetricValue"] { color: #d1d4dc !important; }
     .stButton>button { background-color: #2962ff; color: white; border: none; border-radius: 4px; font-weight: 600; }
     .stButton>button:hover { background-color: #1e53e5; }
+
+    /* Скрываем только лишнее, но оставляем HEADER (верхнюю полоску), чтобы была кнопка меню */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-    header {visibility: hidden;}
+
     </style>
 """, unsafe_allow_html=True)
 
