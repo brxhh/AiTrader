@@ -1,3 +1,5 @@
+import datetime
+
 import streamlit as st
 import pandas as pd
 import yfinance as yf
@@ -32,8 +34,40 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
+# --- ЛОГИКА СТАТУСА РЫНКА ---
+def get_market_status():
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
+    weekday = now_utc.weekday()  # 0=Пн, 4=Пт, 5=Сб, 6=Вс
+    hour = now_utc.hour
+
+    # Рынки закрываются в пятницу в 22:00 UTC и открываются в воскресенье в 22:00 UTC
+    if weekday == 5:  # Суббота
+        return "CLOSED", "#ff5555"
+    if weekday == 4 and hour >= 22:  # Пятница вечер
+        return "CLOSING", "#ffa500"
+    if weekday == 6 and hour < 22:  # Воскресенье день
+        return "CLOSED", "#ff5555"
+
+    return "OPEN", "#00ff00"
+
+
+status_text, status_color = get_market_status()
+
+# Обновленный заголовок
 st.title("⚡ QUANTUM AI TRADER")
-st.markdown("`SYSTEM: ONLINE` | `MODE: REAL-TIME`")
+st.markdown(f"""
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="color: {status_color}; font-weight: bold;">● MARKET {status_text}</span>
+        <span style="color: #787b86;">| MODE: REAL-TIME</span>
+        <span style="color: #787b86;">| UTC: {datetime.datetime.now(datetime.timezone.utc).strftime('%H:%M')}</span>
+    </div>
+""", unsafe_allow_html=True)
+
+if status_text == "CLOSED":
+    st.warning(
+        "⚠️ **MARKETS ARE CLOSED.** Данные на графике — это цены закрытия пятницы. Новые сигналы могут быть неточными до открытия торгов.")
+
 st.divider()
 
 # --- САЙДБАР ---
